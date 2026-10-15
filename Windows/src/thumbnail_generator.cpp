@@ -154,8 +154,8 @@ static bool readWholeFile(const Path& path, std::vector<unsigned char>& out) {
     f.read(reinterpret_cast<char*>(out.data()), size);
     return f.gcount() == size;
 }
-#endif
 
+// Windows 下改用 CreateFileW，此窄字符版本不参与编译
 static bool writeWholeFile(const Path& path, const std::vector<unsigned char>& data) {
     std::ofstream f(path, std::ios::binary | std::ios::trunc);
     if (!f) return false;
@@ -165,6 +165,7 @@ static bool writeWholeFile(const Path& path, const std::vector<unsigned char>& d
     }
     return f.good();
 }
+#endif
 
 /// stb 编码回调：把编码结果累积到内存缓冲区
 static void stbWriteCallback(void* context, void* data, int size) {
