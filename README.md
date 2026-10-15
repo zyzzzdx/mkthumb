@@ -8,24 +8,26 @@
 - 支持 macOS 与 Windows
 
 ![平台](https://img.shields.io/badge/platform-macOS%20%7C%20Windows-blue)
+
 ![许可](https://img.shields.io/badge/license-MIT-green)
+
 ![语言](https://img.shields.io/badge/C%2B%2B%20%7C%20Objective--C-orange)
 
 ---
 
 ## 界面
 
-打开应用，把图片（或整个文件夹）拖进窗口即可批量生成。
+打开应用，把图片（或整个文件夹）拖进窗口即可批量生成。  
 窗口**始终置顶**，拖文件时不用先切换应用。
 
 窗口内的下拉框可切换质量档位：
 
-| 档位 | 长边上限 | JPG 品质 | 参考体积 |
-|---|---|---|---|
-| 高 | 1024px | 85 | 约 100 KB |
-| 中 | 800px | 75 | 约 70 KB |
-| 低 | 400px | 60 | 约 20 KB |
-| 很低 | 200px | 45 | 约 10 KB |
+| 档位 | 长边上限   | JPG 品质 | 参考体积     |
+| -- | ------ | ------ | -------- |
+| 高  | 1024px | 85     | 约 100 KB |
+| 中  | 800px  | 75     | 约 70 KB  |
+| 低  | 400px  | 60     | 约 20 KB  |
+| 很低 | 200px  | 45     | 约 10 KB  |
 
 > 参考体积基于 6016×6016 原图实测，实际随图片内容浮动。
 
@@ -33,19 +35,19 @@
 
 ## 平台支持
 
-| 功能 | macOS | Windows |
-|---|---|---|
-| 置顶拖放窗口 | ✅ | ✅ |
-| 命令行工具 | ✅ | ✅ |
-| 4 档质量切换 | ✅ | ✅ |
-| 目录递归批量 | ✅ | ✅ |
-| 中文路径 | ✅ | ✅ |
-| HEIC / WebP / AVIF | ✅ | ❌ |
-| EXIF 方向旋转 | ✅ | ❌ |
+| 功能                 | macOS | Windows |
+| ------------------ | ----- | ------- |
+| 置顶拖放窗口             | ✅     | ✅       |
+| 命令行工具              | ✅     | ✅       |
+| 4 档质量切换            | ✅     | ✅       |
+| 目录递归批量             | ✅     | ✅       |
+| 中文路径               | ✅     | ✅       |
+| HEIC / WebP / AVIF | ✅     | ❌       |
+| EXIF 方向旋转          | ✅     | ❌       |
 
 **macOS 版**使用 ImageIO，格式支持最全，并自动按 EXIF 方向旋转。
 
-**Windows 版**使用 stb_image，体积仅 530 KB、零第三方 UI 依赖；
+**Windows 版**使用 stb_image，体积仅 530 KB、零第三方 UI 依赖；  
 按需求确认不支持 iPhone 截图（HEIC），且不解析 EXIF 方向。
 
 ---
@@ -73,12 +75,12 @@ mkthumb a.png b.png c.png             # 批量
 ITM_FORMAT=png mkthumb photo.png      # 输出 PNG
 ```
 
-| 环境变量 | 取值 | 默认 |
-|---|---|---|
-| `ITM_FORMAT` | `jpg` / `png` | `jpg` |
-| `ITM_QUALITY` | `high` / `medium` / `low` / `verylow` | `medium` |
-| `ITM_MAXPIXEL` | 64–8000 | `800` |
-| `ITM_SUFFIX` | 任意后缀 | `_thumb` |
+| 环境变量           | 取值                                    | 默认       |
+| -------------- | ------------------------------------- | -------- |
+| `ITM_FORMAT`   | `jpg` / `png`                         | `jpg`    |
+| `ITM_QUALITY`  | `high` / `medium` / `low` / `verylow` | `medium` |
+| `ITM_MAXPIXEL` | 64–8000                               | `800`    |
+| `ITM_SUFFIX`   | 任意后缀                                  | `_thumb` |
 
 #### 打包 DMG
 
@@ -157,7 +159,7 @@ ImageThumbMaker/
 └── LICENSE
 ```
 
-两个平台的核心逻辑（路径推导、尺寸约束、质量档位、批量容错）
+两个平台的核心逻辑（路径推导、尺寸约束、质量档位、批量容错）  
 是**逐行对应**的，行为完全一致。
 
 ---
@@ -170,17 +172,17 @@ ImageThumbMaker/
 
 已验证的关键行为：
 
-| 测试项 | 结果 |
-|---|---|
-| 4 档尺寸正确（1024/800/400/200） | ✅ |
-| 4 档 JPG 品质递进 | ✅ |
-| 保持长宽比 | ✅ |
-| 小图不放大 | ✅ |
-| 透明 PNG 铺白底 | ✅ |
-| 批量单个失败不影响其它 | ✅ |
-| 覆盖写入 | ✅ |
-| 非图片文件跳过 | ✅ |
-| 中文路径 / 子目录 / 绝对路径 | ✅ |
+| 测试项                       | 结果 |
+| ------------------------- | -- |
+| 4 档尺寸正确（1024/800/400/200） | ✅  |
+| 4 档 JPG 品质递进              | ✅  |
+| 保持长宽比                     | ✅  |
+| 小图不放大                     | ✅  |
+| 透明 PNG 铺白底                | ✅  |
+| 批量单个失败不影响其它               | ✅  |
+| 覆盖写入                      | ✅  |
+| 非图片文件跳过                   | ✅  |
+| 中文路径 / 子目录 / 绝对路径         | ✅  |
 
 ---
 
@@ -188,29 +190,28 @@ ImageThumbMaker/
 
 最初的需求是「访达右键菜单 → 创建缩略图」。实测后发现两条路都走不通：
 
-1. **Finder Sync 扩展**：macOS 14+ 强制要求 App Sandbox，
-   而沙盒需要有效的 Developer ID 证书。ad-hoc 签名会被系统**直接丢弃
-   沙盒 entitlement**，扩展无法注册——表现就是「设置里看不到、
-   右键菜单不出现」。源码保留在 `Sources/Extension/`，
+1. **Finder Sync 扩展**：macOS 14+ 强制要求 App Sandbox，  
+   而沙盒需要有效的 Developer ID 证书。ad-hoc 签名会被系统**直接丢弃  
+   沙盒 entitlement**，扩展无法注册——表现就是「设置里看不到、  
+   右键菜单不出现」。源码保留在 `Sources/Extension/`，  
    有证书时 `./build.sh --install` 即可启用。
-
-2. **Automator Services**：作为替代方案尝试过，但本机
-   **pbs（Publish Services）机制失效**——工作流文件在磁盘上、
-   Spotlight 能正确索引、plist 与系统可用示例逐字段一致，
+2. **Automator Services**：作为替代方案尝试过，但本机  
+   **pbs（Publish Services）机制失效**——工作流文件在磁盘上、  
+   Spotlight 能正确索引、plist 与系统可用示例逐字段一致，  
    但 `pbs -dump` 始终不收录新条目。
 
-最终改为**置顶拖放窗口**：不侵入系统、不依赖注册机制、
+最终改为**置顶拖放窗口**：不侵入系统、不依赖注册机制、  
 Windows 上同样可实现——这恰是最适合跨平台的形态。
 
 ---
 
 ## 依赖
 
-| 平台 | 依赖 | 许可 |
-|---|---|---|
-| macOS | Xcode Command Line Tools | 系统自带 |
-| Windows | MinGW-w64 或 MSVC | GPL / 微软 |
-| 两者 | [stb_image](https://github.com/nothings/stb) | 公共领域 |
+| 平台      | 依赖                                            | 许可       |
+| ------- | --------------------------------------------- | -------- |
+| macOS   | Xcode Command Line Tools                      | 系统自带     |
+| Windows | MinGW-w64 或 MSVC                              | GPL / 微软 |
+| 两者      | [stb\_image](https://github.com/nothings/stb) | 公共领域     |
 
 ---
 
